@@ -34,7 +34,7 @@ jobs:
         with:
           working-directory: ./server
           name: server-build
-          path: dist/
+          path: ./dist
 
   server-test:
     needs: [server-build]
