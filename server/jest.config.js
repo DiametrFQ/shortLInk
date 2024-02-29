@@ -1,7 +1,6 @@
 // import type { Config } from "jest";
 
-const config = {
-  modulePathIgnorePatterns: ["<rootDir>/dist/"],
-};
+// const config = {
+// };
 
 // export default config;
