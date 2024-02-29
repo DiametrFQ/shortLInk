@@ -34,7 +34,7 @@ jobs:
         with:
           working-directory: ./server
           name: server-build
-          path: dist
+          path: dist/
 
   server-test:
     needs: [server-build]
@@ -42,12 +42,10 @@ jobs:
     steps:
       - name: Use setup-node
         uses: actions/setup-node@v3
-
-      - name: server-build
+        
+      - name: Testing server
+        working-directory: ./server
         uses: actions/download-artifact@v4
         with:
           name: server-build
-
-      - name: Testing server
-        working-directory: ./server
         run: npm run test
