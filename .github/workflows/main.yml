@@ -37,6 +37,7 @@ jobs:
           path: dist
 
   server-test:
+    needs: [server-build]
     runs-on: ubuntu-latest
     steps:
       - name: Use setup-node
