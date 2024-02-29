@@ -1,0 +1,33 @@
+name: Deploy Next App
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    # paths-ignore:
+    #   - '.github/workflows/*'
+
+  pull_request:
+    branches: [main]
+    # paths-ignore:
+    #   - '.github/workflows/*'
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use checkout
+        uses: actions/checkout@v3
+
+      - name: Use setup-node
+        uses: actions/setup-node@v3
+
+      - name: npm install on server
+        working-directory: ./server
+        run: npm ci
+
+      # - name: Install playwright browsers
+      #   run: npx playwright install --with-deps
+
+      - name: Testing server
+        working-directory: ./server
+        run: npm run test
