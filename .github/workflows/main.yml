@@ -48,4 +48,5 @@ jobs:
         run: npm run build
 
       - name: Test
+        working-directory: ./server
         run: npm run test
