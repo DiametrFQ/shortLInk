@@ -12,7 +12,7 @@ on:
     #   - '.github/workflows/*'
 
 jobs:
-  Test:
+  server-build:
     runs-on: ubuntu-latest
     steps:
       - name: Use checkout
@@ -29,6 +29,45 @@ jobs:
         working-directory: ./server
         run: npm run build
 
-      - name: Testing server
+  server-test:
+    needs: [server-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use checkout
+        uses: actions/checkout@v3
+
+      - name: Use setup-node
+        uses: actions/setup-node@v3
+
+      - name: npm install on server
+        working-directory: ./server
+        run: npm ci
+
+      - name: build project
+        working-directory: ./server
+        run: npm run build
+
+      - name: Test
         working-directory: ./server
         run: npm run test
+
+  # client-test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Use checkout
+  #       uses: actions/checkout@v3
+
+  #     - name: Use setup-node
+  #       uses: actions/setup-node@v3
+
+  #     - name: npm install on server
+  #       working-directory: ./server
+  #       run: npm ci
+
+  #     - name: build project
+  #       working-directory: ./server
+  #       run: npm run build
+
+  #     - name: Testing server
+  #       working-directory: ./server
+  #       run: npm run test

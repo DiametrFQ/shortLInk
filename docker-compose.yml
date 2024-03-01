@@ -1,6 +1,12 @@
 version: '3.8'
 
 services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - 2003:80
+
   client:
     container_name: client
     env_file:
@@ -16,27 +22,27 @@ services:
     build: ./server
     ports: 
       - 3001:3001
-    networks:
-      - main
+    # networks:
+    #   - main
 
   mongoDB:
     container_name: mongoDB
     image: mongo
     restart: always
     ports:
-      - 27017:27017
+      - 27017:80
     environment:
       MONGO_INITDB_DATABASE: logs
       # MONGO_INITDB_ROOT_USERNAME: root
       # MONGO_INITDB_ROOT_PASSWORD: root
-    networks:
-      - main
+    # networks:
+    #   - main
 
   redis:
     container_name: redis
     image: redis
     restart: always
     ports: 
-      - 2345:2345
-    networks:
-      - main
+      - 2345:80
+    # networks:
+    #   - main
