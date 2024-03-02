@@ -17,6 +17,10 @@ export default class Redis {
     this.redisClient.connect();
     console.log("redis is work");
   }
+  disconnect() {
+    this.redisClient.disconnect();
+    console.log("redis is died");
+  }
 
   async getValue(key: string) {
     return await this.redisClient.get(key);

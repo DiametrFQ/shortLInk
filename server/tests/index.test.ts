@@ -1,5 +1,5 @@
 import request, { Response } from "supertest";
-import app, { server } from "../index";
+import app, { server, redis } from "../index";
 
 describe("GET /", () => {
   test('It should respond with "Hello World1!"', async () => {
@@ -36,7 +36,7 @@ describe("POST /create-link", () => {
     expect(redirectResponse.header.location).toBe(testLongLink);
   });
 });
-
 afterAll(() => {
+  redis.disconnect();
   server.close();
 });

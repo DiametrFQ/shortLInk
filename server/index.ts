@@ -41,4 +41,4 @@ const server = app.listen(PORT, () =>
 );
 
 export default app;
-export { server };
+export { server, redis };
