@@ -32,6 +32,21 @@ jobs:
   server-test:
     needs: [server-build]
     runs-on: ubuntu-latest
+        container: node:10.18-jessie
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      redis:
+        # Docker Hub image
+        image: redis
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Use checkout
         uses: actions/checkout@v3
@@ -51,23 +66,19 @@ jobs:
         working-directory: ./server
         run: npm run test
 
-  # client-test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Use checkout
-  #       uses: actions/checkout@v3
+  client-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use checkout
+        uses: actions/checkout@v3
 
-  #     - name: Use setup-node
-  #       uses: actions/setup-node@v3
+      - name: Use setup-node
+        uses: actions/setup-node@v3
 
-  #     - name: npm install on server
-  #       working-directory: ./server
-  #       run: npm ci
+      - name: npm install on server
+        working-directory: ./server
+        run: npm ci
 
-  #     - name: build project
-  #       working-directory: ./server
-  #       run: npm run build
-
-  #     - name: Testing server
-  #       working-directory: ./server
-  #       run: npm run test
+      - name: Testing server
+        working-directory: ./server
+        run: npm run build

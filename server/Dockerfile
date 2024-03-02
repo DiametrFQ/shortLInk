@@ -3,4 +3,5 @@ WORKDIR /server
 ADD package*.json ./
 RUN npm install
 ADD . .
-CMD npm run dev
+RUN npm run build
+CMD npm run start

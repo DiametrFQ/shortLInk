@@ -1,9 +1,6 @@
 import request, { Response } from "supertest";
 import app, { server } from "../index";
 
-const testLongLink =
-  "https://www.google.com/search?q=Lorem+ipsum%2C+dolor+sit+amet+consectetur+adipisicing+elit.+Facere+ut+nobis+non+velit!+Adipisci+itaque+libero+quo+earum+dicta+doloremque+illo+in+deserunt.+Facilis+tempora+voluptas+minima+aut+cumque+debitis!&oq=Lorem+ipsum%2C+dolor+sit+amet+consectetur+adipisicing+elit.+Facere+ut+nobis+non+velit!+Adipisci+itaque+libero+quo+earum+dicta+doloremque+illo+in+deserunt.+Facilis+tempora+voluptas+minima+aut+cumque+debitis!&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCTIyNzMzajBqN6gCALACAA&sourceid=chrome&ie=UTF-8";
-
 describe("GET /", () => {
   test('It should respond with "Hello World1!"', async () => {
     const response = await request(app).get("/");
@@ -15,6 +12,8 @@ describe("GET /", () => {
 
 describe("POST /create-link", () => {
   let path: Response | undefined;
+  const testLongLink =
+    "https://www.google.com/search?q=Lorem+ipsum%2C+dolor+sit+amet+consectetur+adipisicing+elit.+Facere+ut+nobis+non+velit!+Adipisci+itaque+libero+quo+earum+dicta+doloremque+illo+in+deserunt.+Facilis+tempora+voluptas+minima+aut+cumque+debitis!&oq=Lorem+ipsum%2C+dolor+sit+amet+consectetur+adipisicing+elit.+Facere+ut+nobis+non+velit!+Adipisci+itaque+libero+quo+earum+dicta+doloremque+illo+in+deserunt.+Facilis+tempora+voluptas+minima+aut+cumque+debitis!&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCTIyNzMzajBqN6gCALACAA&sourceid=chrome&ie=UTF-8";
 
   test("It should respond with a shortLink", async () => {
     path = await request(app)
